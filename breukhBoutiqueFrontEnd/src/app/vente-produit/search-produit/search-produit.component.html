@@ -1,0 +1,89 @@
+<div class="relative">
+  <input (input)="searchProduit($event)" type="text" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-white-900 bg-white rounded-lg border-1 border-white-900 appearance-none dark:text-white dark:border-white-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+  <label for="floating_outlined" class="absolute text-sm text-white-500 dark:text-white-8000 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Rechercher un produit</label>
+</div>
+
+
+
+<div *ngIf="ActiveCard" class="max-w-sm bg-white m-h-10 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mt-3">
+  <a href="#">
+      <img class="image rounded-t-lg w-full" src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_EMEA_LANG_NL?wid=1280&hei=1190&fmt=jpeg&qlt=90&.v=1664497359581" alt="" />
+  </a>
+  <div class="p-2">
+      <a href="#">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{produitRecup.libelle}}</h5>
+      </a>
+      <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <div *ngFor="let caracteristique of produitRecup.caracteristiques">{{caracteristique.libelle}}:{{caracteristique.valeur}}</div>
+        <!-- <div>8 GB centraal geheugen</div>
+        <div>256 GB SSD‑opslag</div>
+        <div>13‑inch Retina‑display met True Tone</div>
+        <div>Twee Thunderbolt-/USB 4-poorten</div>
+        <div>Touch Bar en Touch ID</div> -->
+      </div>
+      <div *ngIf="ActiveCard" (click)="Open()" class="button flex justify-between items-center">
+        <div class="logo">
+           <img src="../../../assets/generation.png" class="w-20" alt="" srcset="">
+        </div>
+        <a href="#_" class="inline-flex overflow-hidden text-white bg-purples rounded group h-10">
+          <span class="px-3.5 py-2 text-white bg-picker group-hover:bg-purple-600 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          </span>
+          <span class="pl-4 pr-5 py-2.5">Ajouter</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Main modal -->
+
+  <div *ngIf="OpenModal" class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full" style="width: 100%; height: 100%; background: rgba(0, 0, 0, 0.512);">
+    <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="bg-white rounded-lg shadow dark:bg-gray-700" style="position: relative; left: 80%;">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" (click)="close()">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="px-6 py-6 lg:px-8">
+                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Ajouter le quantite et le prix</h3>
+                <form class="space-y-6" action="#" [formGroup]="VenteProduit">
+                  <input type="hidden" formControlName="libelle_produit">
+                  <input type="hidden" formControlName="succursale_produit_id">
+                    <div>
+                        <label for="quantite" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantite</label>
+                        <input type="number" id="quantite" formControlName="quantite_vendu" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label for="prix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
+                        <input type="number" id="prix" formControlName="prix_vente" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <button type="button" class="w-full text-white bg-blue-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" (click)="valideVente()">Valide</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

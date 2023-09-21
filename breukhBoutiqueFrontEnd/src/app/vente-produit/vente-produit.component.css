@@ -1,0 +1,53 @@
+.imageLogo
+{
+  width: 120px;
+}
+
+.con{
+  position: relative;
+  /* width: 1200px; */
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+}
+
+
+
+
+/* .box1{
+  width: 60%;
+  height: 35vh;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px gray;
+  padding-bottom: 1rem;
+  margin-left: 2rem;
+  padding-top: 2rem;
+} */
+
+/* .reference{
+  width: 200px;
+} */
+
+.box2{
+  width: 40%;
+  background: gray;
+}
+
+
+.app-commande{
+  width: 70%;
+  height: 100vh;
+  background: #D5C5C8;
+}
+
+.app-search-produit{
+  width: 30%;
+  height: 100vh;
+  background: #7A316F;
+  padding: 2rem;
+  position: absolute;
+  right: 0;
+}

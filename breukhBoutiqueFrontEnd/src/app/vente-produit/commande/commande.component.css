@@ -1,0 +1,27 @@
+/* .box1{
+
+  height: 20vh;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px gray;
+  padding-bottom: 1rem;
+  margin-left: 2rem;
+  padding-top: 2rem;
+} */
+
+
+.remise
+{
+  display: flex;
+}
+
+
+.inputCalcul{
+  position: fixed;
+  bottom: 5%;
+  left: 15%;
+}
+
+

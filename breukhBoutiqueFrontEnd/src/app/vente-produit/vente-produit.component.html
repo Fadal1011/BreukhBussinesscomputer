@@ -1,0 +1,22 @@
+
+
+
+    <div class="con w-full">
+      <div class="app-commande"
+      [tabCommande]="tabCommande"
+      [totalProduits]="totalProduits"
+      [montantTotalduProduit]="montantTotalduProduit"
+      (commandeEnd)="TerminerPaiement($event)"
+      [notification]="notifications"></div>
+
+      <div class="app-search-produit"
+      (codeProduit)="searchProduitRecupEmit($event)"
+       [produitRecup]="produitRetrouver"
+       [ActiveCard]="ActiveCard"
+       (Add_Produit)="Add_Produit($event)"
+       ></div>
+    </div>
+
+
+
+
