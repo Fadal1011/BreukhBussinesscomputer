@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,13 +17,21 @@ class AuthController extends Controller
 {
     public function register(StoreAuthRequest $request)
     {
+    $imagePath = $request->photo; // Chemin vers votre image
+
+    // Lire le contenu de l'image
+    $imageData = File::get($imagePath);
+
+    // Convertir l'image en base64
+    $base64Image = base64_encode($imageData);
 
         $user = User::create([
             "username" => $request->username,
             "email" => $request->email,
             "name" => $request->name,
+            "photo" => $base64Image,
             "password" => Hash::make($request->password),
-            "succursales_id" => 1
+            "succursales_id" => 2
         ]);
         return response($user, Response::HTTP_CREATED);
     }
@@ -62,7 +71,7 @@ class AuthController extends Controller
             $user = Auth::user();
             $success =  $user->createToken('MyApp')->plainTextToken;
             $cookie = cookie("token",$success,24 * 60);
-            return response(['token' => $success], 200)->withCookie($cookie);
+            return response(['token' => $success,"user"=>$user], 200)->withCookie($cookie);
         }
 
         return response(['message' => 'Email or password is wrong'], 401);
@@ -76,7 +85,7 @@ class AuthController extends Controller
         return $request->user();
     }
 
-    
+
 
     public function logout(): Response
     {

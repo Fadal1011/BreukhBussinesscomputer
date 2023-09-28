@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Caracteristique;
-use App\Models\Produit;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('produit_caracteristiques', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('valeur');
-            $table->Text('description')->nullable();
-            $table->string('unite')->nullable();
-            $table->foreignIdFor(Produit::class)->constrained();
-            $table->foreignIdFor(Caracteristique::class)->constrained();
+            $table->string('libelle');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('categories');
     }
 };

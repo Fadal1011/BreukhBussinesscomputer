@@ -10,7 +10,7 @@ export class SearchProduitService {
 
   constructor(private http:HttpClient) {}
 
-  SearchProduit(idSuccursale:number,code:string):Observable<Data>{
+  SearchProduit(idSuccursale:string | null,code:string):Observable<Data>{
     return this.http.get<Data>(`http://127.0.0.1:8000/api/succursales/${idSuccursale}/search/${code}`);
   }
 }

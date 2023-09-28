@@ -8,6 +8,16 @@ import { SearchProduitComponent } from './vente-produit/search-produit/search-pr
 import { ItemCommandeComponent } from './vente-produit/commande/item-commande/item-commande.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthentificationComponent } from './authentification/authentification.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ProduitComponent } from './produit/produit.component';
+import { AjouterProduitComponent } from './produit/ajouter-produit/ajouter-produit.component';
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -16,13 +26,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommandeComponent,
     SearchProduitComponent,
     ItemCommandeComponent,
-
+    AuthentificationComponent,
+    NavBarComponent,
+    ProduitComponent,
+    AjouterProduitComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

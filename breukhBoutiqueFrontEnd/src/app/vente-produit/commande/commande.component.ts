@@ -11,6 +11,7 @@ import { Produit_Vente, Vente } from 'src/app/command-interface';
   styleUrls: ['./commande.component.css']
 })
 export class CommandeComponent implements OnInit{
+  @Input() tabAfficheCommande!:Vente[]
   @Input() tabCommande!:Vente[];
   @Input() totalProduits!:number;
 
@@ -21,6 +22,18 @@ export class CommandeComponent implements OnInit{
   montantAremis!:number;
   @Output() commandeEnd = new EventEmitter<Produit_Vente>();
   @Input() notification!:boolean;
+
+  openModal!:boolean;
+
+  openModalFunc(){
+    console.log("sdfcdfcfqsd");
+
+    this.openModal =true
+  }
+
+  closeModalFunc(){
+    this.openModal =false;
+  }
 
 
 
@@ -36,23 +49,23 @@ export class CommandeComponent implements OnInit{
     })
   }
 
-  calculeRemise(event: Event) {
-    let pourcentageRemise = +(event.target as HTMLInputElement).value;
-    let remise = pourcentageRemise / 100;
+    calculeRemise(event: Event) {
+      let pourcentageRemise = +(event.target as HTMLInputElement).value;
+      let remise = pourcentageRemise / 100;
 
-    // Vérifier si la valeur initiale du montant total n'a pas encore été stockée
-    if (this.valeurInitialeMontantTotal === undefined) {
-      this.valeurInitialeMontantTotal = this.montantTotalduProduit;
+      // Vérifier si la valeur initiale du montant total n'a pas encore été stockée
+      if (this.valeurInitialeMontantTotal === undefined) {
+        this.valeurInitialeMontantTotal = this.montantTotalduProduit;
+      }
+
+      // Réinitialiser le montant total à sa valeur initiale
+      this.montantTotalduProduit = this.valeurInitialeMontantTotal;
+
+      // Calculer le montant de la remise
+      let montantDeRemise = this.montantTotalduProduit * remise;
+      // Soustraire le montant de la remise du montant total
+      this.montantTotalduProduit -= montantDeRemise;
     }
-
-    // Réinitialiser le montant total à sa valeur initiale
-    this.montantTotalduProduit = this.valeurInitialeMontantTotal;
-
-    // Calculer le montant de la remise
-    let montantDeRemise = this.montantTotalduProduit * remise;
-    // Soustraire le montant de la remise du montant total
-    this.montantTotalduProduit -= montantDeRemise;
-  }
 
 
   calculeMontantDonnee(event: Event){

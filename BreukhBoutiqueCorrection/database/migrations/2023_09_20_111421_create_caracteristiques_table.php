@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('libelle');
             $table->Text('valeurs')->nullable();
+            $table->string('unite')->nullable();
             $table->timestamps();
         });
     }

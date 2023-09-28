@@ -22,7 +22,7 @@ class SuccursaleResource extends JsonResource
             "prix"=>$this->pivot->prix,
             "prix_gros"=>$this->pivot->prix_gros,
             "quantite"=>$this->pivot->quantite,
-            "succursale_produit_id"=>$this->id,
+            "succursale_produit_id"=>$this->pivot->id,
 
 
         ];

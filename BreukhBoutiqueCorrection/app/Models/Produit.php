@@ -14,10 +14,10 @@ class Produit extends Model
     protected $guarded = [];
 
     public function succursales():BelongsToMany{
-        return $this->belongsToMany(Succursales::class,'succursales_produits')->withPivot('quantite','prix','prix_gros');
+        return $this->belongsToMany(Succursales::class,'succursales_produits')->withPivot('quantite','prix','prix_gros','id');
     }
     public function caracteristiques():BelongsToMany{
-        return $this->belongsToMany(Caracteristique::class,'produit_caracteristiques')->withPivot('valeur','description');
+        return $this->belongsToMany(Caracteristique::class,'produit_caracteristiques')->withPivot('valeur', 'unite','description');
     }
 
     public function scopeQuantitePositive(Builder $builder , $ids , $limit , $code):Builder {

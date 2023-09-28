@@ -1,0 +1,116 @@
+<div class="bg-blue-300 h-full p-7" style="width: 60%; margin: 3rem auto;">
+  <h2 class="mb-4 text-1xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Nouveau produit</h2>
+    <form action="" [formGroup]="ajouter_produit">
+      <div class="flex justify-between">
+          <div class="mb-6">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Article</label>
+            <input type="text" id="default-input" formControlName="libelle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style="width: 35rem;">
+        </div>
+
+        <div class="flex justify-between" style="width: 35rem;">
+          <div class="mb-6">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix d'achat</label>
+            <input type="number" id="default-input" formControlName="prix" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style="width: 15rem;">
+          </div>
+
+          <div class="mb-6">
+            <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantite en Stock</label>
+            <input type="number" id="default-input" formControlName="quantite" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style="width: 15rem;">
+          </div>
+        </div>
+      </div>
+      <!-- --------------------------------------------------------------------------- -->
+      <div class="flex justify-between">
+        <div class="mb-6">
+          <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marque</label>
+          <select id="countries_disabled" formControlName="marque_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style="width: 35rem;">
+            <option selected>Choose a country</option>
+            <option *ngFor="let m of marque" value="{{m.id}}">{{m.libelle}}</option>
+          </select>
+      </div>
+
+      <div class="mb-6">
+        <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorie</label>
+        <select id="countries_disabled" formControlName="categorie_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style="width: 35rem;">
+          <option selected>Choose a country</option>
+          <option value="US" *ngFor="let c of categorie" value="{{c.id}}">{{c.libelle}}</option>
+        </select>
+      </div>
+
+      </div>
+
+      <!-- ------------------------------------------------------------------------------ -->
+
+      <div class="w-1/4 h-22 p-1 mx-auto bg-white border-2 border-red-500">
+        <h3>Code produit :</h3>
+        <input class="w-full bg-transparent text-center text-6xl outline-none border-none" formControlName="code" type="number" value="0000">
+      </div>
+
+      <div class="flex justify-between">
+        <div class="overflow-x-auto" style="height: 30vh">
+          <div class="scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 hover:scrollbar-thumb-gray-400"
+               style="max-height: calc(40vh - 10vh);">
+            <div *ngFor="let caracteristique of produit_caracteristiques; let i = index" [formGroup]="caracteristique">
+              <td>
+                <select  formControlName="caracteristique_id" id="{{i}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" (input)="selectCategorie($event)">
+                  <option selected>Choose a country</option>
+                  <option *ngFor="let c of caracteristiqueProduit" value="{{c.id}}">{{c.libelle}}</option>
+                </select>
+              </td>
+              <td *ngIf="champActive[i] === 3">
+                <div class="flex gap-3">
+                  <select id="countries" formControlName="valeur" class="bg-gray-50 w-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected >Choose a country</option>
+                    <option *ngFor="let valeur of chargeSelctValeur[i]" value="{{valeur}}">{{valeur}}</option>
+                  </select>
+
+                  <!-- Uniter -->
+                  <select id="countries" formControlName="unite" class="bg-gray-50 w-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Choose a country</option>
+                    <option *ngFor="let unite of chargeSelctUnite[i]" value="{{unite}}">{{unite}}</option>
+                  </select>
+
+                </div>
+              </td>
+              <td *ngIf="champActive[i] === 2">
+                <select id="countries" formControlName="valeur" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option selected>Choose a country</option>
+                  <option *ngFor="let valeur of chargeSelctValeur[i]" value="{{valeur}}">{{valeur}}</option>
+                </select>
+              </td>
+              <td *ngIf="champActive[i] === 1">
+                <input type="text" formControlName="valeur" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              </td>
+              <td><button (click)="removeItem(i)" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Supprimer</button></td>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-100" style="width: 20rem; height: 20rem;">
+          <div class="relative upload w-full h-full">
+            <img [src]="photo?.value" class="relative h-full w-full object-cover cursor-pointer">
+            <div class="round">
+              <input type="file" accept="images/" formControlName="photo" (change)="onFileChange($event)">
+              <i class = "fa fa-camera" style = "color: #fff;"></i>
+            </div>
+          </div>
+          <button type="button" (click)="addColumncontrol()" class="relative w-full text-center  px-5 py-3 overflow-hidden font-bold rounded-full group mt-3">
+            <span class="w-full h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+            <span class="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-0"></span>
+            <span class="relative w-full text-left text-blue-800 transition-colors duration-200 ease-in-out group-hover:text-gray-900"> Ajouter un categorie</span>
+            <span class="absolute inset-0 border-2 border-white rounded-full"></span>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="action flex gap-3 static right-0" style="width: 20rem;">
+          <button type="button" (click)="AddProduit()" class="relative block w-auto px-6 py-3 overflow-hidden text-base font-semibold text-center text-white rounded-lg bg-green-800 hover:text-black hover:bg-white">
+            Enregistrer
+          </button>
+          <button type="button" class="relative block w-auto px-6 py-3 overflow-hidden text-base font-semibold text-center text-white rounded-lg bg-red-800 hover:text-black hover:bg-white">
+            Annuler
+          </button>
+       </div>
+    </form>
+</div>

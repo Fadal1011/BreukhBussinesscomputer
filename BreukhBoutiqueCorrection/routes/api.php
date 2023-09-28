@@ -3,6 +3,7 @@
 use App\Http\Controllers\AmiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\ProduitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,19 +23,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
 
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/succursales/{id}/search/{code}', [ProduitController::class, 'search']);
+Route::post('/AjouterProduit',[ProduitController::class,'store']);
+Route::get('/all', [MarqueController::class,'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
     // Route::get('/succursales/{id}/search/{code}', [ProduitController::class, 'search']);
+    // Route::post('/AjouterProduit',[ProduitController::class,'store']);
+
 
     Route::controller(AmiController::class)->prefix('/succursales/{id}/')->group(function () {
         Route::get('friends',  'listeSuccursalesFriends');

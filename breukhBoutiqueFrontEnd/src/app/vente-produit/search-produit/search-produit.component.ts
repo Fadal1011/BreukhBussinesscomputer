@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Produit, Vente } from 'src/app/command-interface';
 
 
@@ -17,8 +17,23 @@ export class SearchProduitComponent implements OnInit{
   VenteProduit!:FormGroup;
   Id!:number;
   @Output() Add_Produit = new EventEmitter<Vente>();
+  quantiteProduit!:number;
 
   constructor(private vente:FormBuilder){}
+
+  // MergeValidation(quantiteProduit:number): ValidatorFn {
+  //   return (control: AbstractControl): ValidationErrors | null => {
+  //    const QuantiteVendu = control.value;
+  //     if (!QuantiteVendu) {
+  //       return null;
+  //     }
+
+  //     const Comparaison = QuantiteVendu < quantiteProduit;
+
+
+  //     return Comparaison ? null : { ComparaisonValue: false };
+  //   };
+  // }
 
   ngOnInit(){
     this.VenteProduit = this.vente.group({
@@ -32,14 +47,28 @@ export class SearchProduitComponent implements OnInit{
   valideVente(){
     for(let produitSuccursaleId of this.produitRecup.succursales){
       this.Id = produitSuccursaleId.succursale_produit_id
+      this.quantiteProduit = produitSuccursaleId.quantite;
     }
     this.VenteProduit.patchValue({
       libelle_produit:this.produitRecup.libelle,
       succursale_produit_id: this.Id,
     })
 
-    this.Add_Produit.emit(this.VenteProduit.value)
-    this.OpenModal = false;
+    // console.log(this.VenteProduit.get('quantite_vendu')?.value);
+
+    if(this.quantiteProduit > this.VenteProduit.get('quantite_vendu')?.value){
+      this.Add_Produit.emit(this.VenteProduit.value)
+      this.OpenModal = false;
+
+      this.produitRecup = {
+        id:0,
+        libelle :"",
+        code:"",
+        caracteristiques:[],
+        succursales:[],
+      }
+    }
+
   }
 
 
